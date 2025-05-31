@@ -1,9 +1,9 @@
-import { StackProps, RemovalPolicy, NestedStack, CfnResource, NestedStackProps } from 'aws-cdk-lib';
+import { RemovalPolicy, NestedStackProps } from 'aws-cdk-lib';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
-import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
+import { MyNestedStack } from '../construct/MyNestedStack';
 
-export class MyNestedStack2 extends NestedStack {
+export class MyNestedStack2 extends MyNestedStack {
   readonly table: Table;
   constructor(scope: Construct, id: string, props: NestedStackProps = {}) {
     super(scope, id, props);
@@ -13,11 +13,5 @@ export class MyNestedStack2 extends NestedStack {
       removalPolicy: RemovalPolicy.DESTROY, // Only for dev/test environments
       billingMode: BillingMode.PAY_PER_REQUEST, // On-demand billing mode
     });
-
-    // CloudFormationの論理IDを明示的に上書き
-    const cfnResource = this.node.defaultChild as CfnResource;
-    if (cfnResource) {
-      cfnResource.overrideLogicalId('MyNestedStack2');
-    }
   }
 }

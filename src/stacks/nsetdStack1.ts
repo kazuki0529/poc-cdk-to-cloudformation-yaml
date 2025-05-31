@@ -1,8 +1,9 @@
-import { StackProps, RemovalPolicy, NestedStack, CfnResource, NestedStackProps } from 'aws-cdk-lib';
+import { RemovalPolicy, NestedStackProps } from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
+import { MyNestedStack } from '../construct/MyNestedStack';
 
-export class MyNestedStack1 extends NestedStack {
+export class MyNestedStack1 extends MyNestedStack {
   readonly bucket: s3.Bucket;
   constructor(scope: Construct, id: string, props: NestedStackProps = {}) {
     super(scope, id, props);
@@ -12,11 +13,5 @@ export class MyNestedStack1 extends NestedStack {
       removalPolicy: RemovalPolicy.DESTROY, // Only for dev/test environments
       autoDeleteObjects: true, // Only for dev/test environments
     });
-
-    // CloudFormationの論理IDを明示的に上書き
-    const cfnResource = this.node.defaultChild as CfnResource;
-    if (cfnResource) {
-      cfnResource.overrideLogicalId('MyNestedStack1');
-    }
   }
 }
