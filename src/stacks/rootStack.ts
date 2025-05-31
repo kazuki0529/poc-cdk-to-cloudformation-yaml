@@ -5,11 +5,24 @@ import { Construct } from 'constructs';
 import { MyNestedStack1 } from './nsetdStack1';
 import { MyNestedStack2 } from './nsetdStack2';
 
+/**
+ * ルートスタック。
+ * S3バケットを持つNestedStackとDynamoDBテーブルを持つNestedStack、
+ * それらを参照するLambda関数を作成します。
+ */
 export class MyStack extends Stack {
+  /**
+   * スタックの初期化処理
+   * @param scope 親Construct
+   * @param id スタックID
+   * @param props スタックプロパティ
+   */
   constructor(scope: Construct, id: string, props: StackProps = {}) {
     super(scope, id, props);
 
+    // S3バケット用NestedStack
     const nestStack1 = new MyNestedStack1(this, 'MyNestedStack1');
+    // DynamoDBテーブル用NestedStack
     const nestStack2 = new MyNestedStack2(this, 'MyNestedStack2');
 
 

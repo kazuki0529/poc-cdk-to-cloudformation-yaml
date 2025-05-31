@@ -4,19 +4,41 @@ import { App, Stack, StackProps } from 'aws-cdk-lib';
 import yaml from 'yaml';
 import { MyStack } from './stacks/rootStack';
 
+/**
+ * エントリーポイント: CDKアプリケーションを初期化し、
+ * CloudFormationテンプレート（親・NestedStack）をYAML形式でdistフォルダに出力する。
+ * - 親テンプレートのTemplateURLを相対パスに書き換え
+ * - NestedStackのテンプレートもResourceキー名.yamlで出力
+ */
 
 // for development, use account/region from cdk cli
+/**
+ * 開発用デプロイ環境情報（CDK CLIからアカウント・リージョンを取得）
+ */
 const devEnv = {
   account: process.env.CDK_DEFAULT_ACCOUNT,
   region: process.env.CDK_DEFAULT_REGION,
 };
 
+/**
+ * CDKアプリケーションの初期化
+ */
 const app = new App();
 
+/**
+ * ルートスタックのデプロイ
+ */
 new MyStack(app, 'MyStack', { env: devEnv });
 
+/**
+ * CloudAssembly（合成結果）を取得
+ */
 const cloudAssembly = app.synth();
 
+/**
+ * 親テンプレートを取得し、TemplateURLを相対パスに書き換えた上でYAML出力。
+ * また、NestedStackのテンプレートもResourceキー名.yamlで出力する。
+ */
 const parentStack = cloudAssembly.getStackByName('MyStack');
 if (parentStack) {
   const parentTemplate = JSON.parse(JSON.stringify(parentStack.template));

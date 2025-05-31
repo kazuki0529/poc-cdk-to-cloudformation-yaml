@@ -1,5 +1,5 @@
-import { CfnResource, NestedStack, NestedStackProps } from "aws-cdk-lib";
-import { Construct } from "constructs";
+import { CfnResource, NestedStack, NestedStackProps } from 'aws-cdk-lib';
+import { Construct } from 'constructs';
 
 interface MyNestedStackRequiredProps {
 }

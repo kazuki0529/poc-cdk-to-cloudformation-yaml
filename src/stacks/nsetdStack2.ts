@@ -3,8 +3,22 @@ import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
 import { MyNestedStack } from '../construct/MyNestedStack';
 
+/**
+ * DynamoDBテーブルを作成するNestedStack。
+ * パーティションキーや課金モードなど、開発・検証用途向けの設定が含まれます。
+ */
 export class MyNestedStack2 extends MyNestedStack {
+  /**
+   * このNestedStackで作成されるDynamoDBテーブル
+   */
   readonly table: Table;
+
+  /**
+   * コンストラクタ
+   * @param scope 親Construct
+   * @param id スタックID
+   * @param props NestedStackのプロパティ
+   */
   constructor(scope: Construct, id: string, props: NestedStackProps = {}) {
     super(scope, id, props);
 
