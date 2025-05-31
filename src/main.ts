@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import yaml from 'yaml';
 import { App, Stack, StackProps } from 'aws-cdk-lib';
+import yaml from 'yaml';
 import { MyStack } from './stacks/rootStack';
 
 
@@ -13,8 +13,7 @@ const devEnv = {
 
 const app = new App();
 
-const stack = new MyStack(app, 'MyStack', { env: devEnv });
-// new MyStack(app, 'poc-cdk-to-cloudformation-yaml-prod', { env: prodEnv });
+new MyStack(app, 'MyStack', { env: devEnv });
 
 const cloudAssembly = app.synth();
 

@@ -17,8 +17,14 @@ exports[`Snapshot 1`] = `
           "Variables": {
             "BUCKET_NAME": {
               "Fn::GetAtt": [
-                "MySubStack",
-                "Outputs.testMySubStackMyBucketDE38CC1CRef",
+                "MyNestedStack1",
+                "Outputs.testMyNestedStack1MyBucketDD0D0DE5Ref",
+              ],
+            },
+            "TABLE_NAME": {
+              "Fn::GetAtt": [
+                "MyNestedStack2",
+                "Outputs.testMyNestedStack2MyTable5D6DF389Ref",
               ],
             },
           },
@@ -28,7 +34,7 @@ exports[`Snapshot 1`] = `
       },
       "Type": "AWS::Serverless::Function",
     },
-    "MySubStack": {
+    "MyNestedStack1": {
       "DeletionPolicy": "Delete",
       "Properties": {
         "TemplateURL": {
@@ -47,7 +53,34 @@ exports[`Snapshot 1`] = `
               {
                 "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
               },
-              "/d7dc3d92efa5d1f1a22d3297151088cbe394005b2120919463bc225a484d215f.json",
+              "/a53f18e8fe85675f7195788b880eca665c5d2b2f5c338dcc2e382231b1217322.json",
+            ],
+          ],
+        },
+      },
+      "Type": "AWS::CloudFormation::Stack",
+      "UpdateReplacePolicy": "Delete",
+    },
+    "MyNestedStack2": {
+      "DeletionPolicy": "Delete",
+      "Properties": {
+        "TemplateURL": {
+          "Fn::Join": [
+            "",
+            [
+              "https://s3.",
+              {
+                "Ref": "AWS::Region",
+              },
+              ".",
+              {
+                "Ref": "AWS::URLSuffix",
+              },
+              "/",
+              {
+                "Fn::Sub": "cdk-hnb659fds-assets-\${AWS::AccountId}-\${AWS::Region}",
+              },
+              "/d850c4aae1d2becb3e693c9488380b239ee6c29382d088251a2589f2168bf213.json",
             ],
           ],
         },
