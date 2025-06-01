@@ -1,7 +1,7 @@
 import { RemovalPolicy, NestedStackProps } from 'aws-cdk-lib';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import { Construct } from 'constructs';
-import { MyNestedStack } from '../construct/MyNestedStack';
+import { MyNestedStack, MyNestedStackProps } from '../construct/MyNestedStack';
 
 /**
  * S3バケットを作成するNestedStack。
@@ -19,7 +19,7 @@ export class MyNestedStack1 extends MyNestedStack {
    * @param id スタックID
    * @param props NestedStackのプロパティ
    */
-  constructor(scope: Construct, id: string, props: NestedStackProps = {}) {
+  constructor(scope: Construct, id: string, props: MyNestedStackProps = {}) {
     super(scope, id, props);
 
     this.bucket = new s3.Bucket(this, 'MyBucket', {

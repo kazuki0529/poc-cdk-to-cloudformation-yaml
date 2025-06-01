@@ -1,7 +1,7 @@
 import { RemovalPolicy, NestedStackProps } from 'aws-cdk-lib';
 import { AttributeType, BillingMode, Table } from 'aws-cdk-lib/aws-dynamodb';
 import { Construct } from 'constructs';
-import { MyNestedStack } from '../construct/MyNestedStack';
+import { MyNestedStack, MyNestedStackProps } from '../construct/MyNestedStack';
 
 /**
  * DynamoDBテーブルを作成するNestedStack。
@@ -19,7 +19,7 @@ export class MyNestedStack2 extends MyNestedStack {
    * @param id スタックID
    * @param props NestedStackのプロパティ
    */
-  constructor(scope: Construct, id: string, props: NestedStackProps = {}) {
+  constructor(scope: Construct, id: string, props: MyNestedStackProps = {}) {
     super(scope, id, props);
 
     this.table = new Table(this, 'MyTable', {
